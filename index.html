@@ -1,0 +1,102 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SentimentAI | Movie Review Analyzer</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <header class="navbar">
+        <div class="logo">Sentiment<span>AI.</span></div>
+        <nav>
+            <a href="#home">Home</a>
+            <a href="#analyzer">Analyzer</a>
+            <a href="#about">About</a>
+        </nav>
+        <a class="github-btn"
+           href="https://github.com/Yogesh23082007/Movie-Review-Sentiment-Analysis"
+           target="_blank">GitHub ↗</a>
+    </header>
+
+    <main>
+        <section class="hero" id="home">
+            <p class="tagline">✦ MACHINE LEARNING PROJECT</p>
+
+            <h1>Understand the <span>Emotion</span><br>
+                Behind Every Review.</h1>
+
+            <p class="hero-text">
+                Discover whether a movie review expresses a positive
+                or negative opinion using Artificial Intelligence
+                and Natural Language Processing.
+            </p>
+
+            <a href="#analyzer" class="primary-btn">
+                Analyze a Review →
+            </a>
+        </section>
+
+        <section class="analyzer" id="analyzer">
+            <p class="section-label">AI SENTIMENT ANALYZER</p>
+            <h2>Try It Yourself</h2>
+            <p class="section-text">
+                Enter your movie review below and let our ML model
+                analyze its sentiment.
+            </p>
+
+            <div class="analyzer-card">
+                <label for="reviewInput">Your Movie Review</label>
+
+                <textarea
+                    id="reviewInput"
+                    placeholder="Example: This movie was amazing! The acting and story were outstanding..."
+                    rows="6"></textarea>
+
+                <div class="input-footer">
+                    <span id="charCount">0 characters</span>
+                    <button id="analyzeBtn" class="primary-btn">
+                        Analyze Sentiment →
+                    </button>
+                </div>
+
+                <div id="result" class="result hidden">
+                    <h3 id="sentimentText"></h3>
+                    <p id="sentimentDescription"></p>
+                </div>
+            </div>
+        </section>
+
+        <section class="about" id="about">
+            <p class="section-label">ABOUT THE PROJECT</p>
+            <h2>Powered by Machine Learning</h2>
+
+            <div class="features">
+                <div class="feature-card">
+                    <h3>TF-IDF</h3>
+                    <p>Converts text reviews into numerical features.</p>
+                </div>
+
+                <div class="feature-card">
+                    <h3>Logistic Regression</h3>
+                    <p>Classifies reviews into positive or negative sentiment.</p>
+                </div>
+
+                <div class="feature-card">
+                    <h3>89.548%</h3>
+                    <p>Test accuracy achieved by our selected model.</p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>Built by Yogesh Lingutla | AI & Machine Learning Project</p>
+        <p>© 2026 SentimentAI</p>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
