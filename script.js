@@ -7,57 +7,93 @@ const result = document.getElementById("result");
 const sentimentText = document.getElementById("sentimentText");
 const sentimentDescription = document.getElementById("sentimentDescription");
 
-const API_URL = "https://movie-review-sentiment-analysis-2-15qw.onrender.com/predict";
+// Your live Render API
+const API_URL =
+    "https://movie-review-sentiment-analysis-2-15qw.onrender.com/predict";
 
 // Character counter
 reviewInput.addEventListener("input", function () {
-    charCount.textContent = `${reviewInput.value.length} characters`;
+    charCount.textContent =
+        `${reviewInput.value.length} characters`;
+
+    result.classList.add("hidden");
 });
 
-// Actual ML prediction
+// Analyze movie review
 analyzeBtn.addEventListener("click", async function () {
+
     const review = reviewInput.value.trim();
 
+    // Validate input
     if (review.length < 5) {
         alert("Please enter a movie review with at least 5 characters.");
         return;
     }
 
+    // Show loading state
     analyzeBtn.disabled = true;
     analyzeBtn.textContent = "Analyzing...";
 
     result.classList.remove("hidden");
     sentimentText.textContent = "Analyzing your review...";
-    sentimentDescription.textContent = "Please wait while our ML model processes your review.";
+    sentimentDescription.textContent =
+        "Our machine learning model is processing your review.";
 
     try {
+
+        // Send review to Render API
         const response = await fetch(API_URL, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"
             },
-            body: JSON.stringify({ review: review })
+            body: JSON.stringify({
+                review: review
+            })
         });
 
         const data = await response.json();
 
+        // Check API response
         if (!response.ok) {
-            throw new Error(data.error || "Prediction failed.");
+            throw new Error(
+                data.error || "Unable to analyze the review."
+            );
         }
 
-        sentimentText.textContent =
-            data.sentiment === "Positive"
-                ? "Positive Sentiment 😊"
-                : "Negative Sentiment 😞";
+        // Display prediction
+        if (data.sentiment === "Positive") {
 
+            sentimentText.textContent =
+                "Positive Sentiment 😊";
+
+            sentimentText.style.color = "#4ade80";
+
+        } else {
+
+            sentimentText.textContent =
+                "Negative Sentiment 😞";
+
+            sentimentText.style.color = "#f87171";
+        }
+
+        // Display model-estimated confidence
         sentimentDescription.textContent =
             `Model-estimated confidence: ${data.confidence}%`;
 
     } catch (error) {
-        sentimentText.textContent = "Prediction Error";
+
+        console.error("Prediction error:", error);
+
+        sentimentText.textContent = "Prediction Failed";
+
         sentimentDescription.textContent =
-            error.message + " Please try again.";
+            error.message ||
+            "Could not connect to the prediction server. Please try again.";
+
     } finally {
+
+        // Restore button
         analyzeBtn.disabled = false;
         analyzeBtn.textContent = "Analyze Sentiment →";
     }
